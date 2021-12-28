@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 This application will automatically query `SWAPI` on page load. Results will be rendered in a table. Any errors in the query will display the error message and empty results will also display an error message.
 
-## Building
+## Building & Running
 
 Use `npm install` to build the application
 
