@@ -1,23 +1,62 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
+import { initialPlanetQuery } from './utils/queryHelper'
+import { parsePlanetData } from './utils/dataParser';
+import PlanetTable from './components/PlanetTable';
+import ErrorCard from './components/ErrorCard';
+import { Spinner } from "react-bootstrap";
 import './App.css';
 
-function App() {
+const App = () => {
+    const [planets, setPlanets] = useState(null)
+    const [error, setError] = useState(null)
+    const [loading, setLoading] = useState(true)
+
+    const queryPlanets = async() => {
+        setLoading(true)
+        const { results, next, previous, count, isAxiosError, message } = await initialPlanetQuery()
+        if (results) {
+            setPlanets(parsePlanetData(results))
+            setLoading(false)
+        }
+        if (isAxiosError) {
+            setError(message)
+            setLoading(false)
+        }
+    }
+
+    const conditionalRendering = () => {
+        if (loading || !loading) {
+            return (
+                <div style={{ flex: 1, alignContent: 'center' }}>
+                    <Spinner
+                        animation={'border'}
+                        variant={'warning'}
+                    />
+                </div>
+            )
+        }
+        if (error) {
+            return <ErrorCard message={error}/>
+        }
+        if (planets.length > 0) {
+            return <PlanetTable planets={planets} />
+        } else {
+            return <ErrorCard message={'No planets to display'} />
+        }
+    }
+
+    useEffect(() => {
+        if (!planets) {
+            queryPlanets()
+        }
+    }, [planets])
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+           The Nav Computer
       </header>
+        {conditionalRendering()}
     </div>
   );
 }
