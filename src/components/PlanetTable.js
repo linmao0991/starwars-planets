@@ -2,6 +2,7 @@ import { Table, Card } from 'react-bootstrap';
 import { formatNumber } from '../utils/dataParser';
 
 const PlanetTable = ({ planets }) => {
+    console.log(planets)
     const calcSurfaceWater = (surface_water, diameter) => {
         let radius = parseInt(diameter) / 2
         let surfaceWater = parseInt(surface_water)
@@ -21,20 +22,22 @@ const PlanetTable = ({ planets }) => {
                     <tr>
                         <td>Name</td>
                         <td>Climate</td>
-                        <td>Population</td>
+                        <td>Residents</td>
                         <td>Terrains</td>
+                        <td>Population</td>
                         <td>Water Surface Area</td>
                     </tr>
                     </thead>
                     <tbody>
                         {planets.map(planet => {
-                            const { name, population, climate, terrain, diameter, surface_water, url } = planet
+                            const { name, population, climate, terrain, diameter, surface_water, url, residents } = planet
                             return (
                                 <tr key={url}>
                                     <td>{name ? <a href={url}>{name}</a> : '?'}</td>
                                     <td>{formatNumber(climate) || '?'}</td>
-                                    <td>{formatNumber(population) || '?'}</td>
+                                    <td>{residents.length}</td>
                                     <td>{formatNumber(terrain) || '?'}</td>
+                                    <td>{formatNumber(population) || '?'}</td>
                                     <td>{(surface_water) ? formatNumber(calcSurfaceWater(surface_water, diameter)) : '?' }</td>
                                 </tr>
                             )
