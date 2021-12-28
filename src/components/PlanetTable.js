@@ -15,7 +15,7 @@ const PlanetTable = ({ planets }) => {
         }
     }
     return(
-        <Card style={{ width: '50%', minWidth: 250, margin: 20}}>
+        <Card style={{ width: '75%'}}>
                 <Table striped bordered hover>
                     <thead>
                     <tr>
