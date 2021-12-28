@@ -13,7 +13,7 @@ const App = () => {
 
     const queryPlanets = async() => {
         setLoading(true)
-        const { results, next, previous, count, isAxiosError, message } = await initialPlanetQuery()
+        const { results, isAxiosError, message } = await initialPlanetQuery()
         if (results) {
             setPlanets(parsePlanetData(results))
             setLoading(false)
@@ -25,7 +25,7 @@ const App = () => {
     }
 
     const conditionalRendering = () => {
-        if (loading || !loading) {
+        if (loading) {
             return (
                 <div style={{ flex: 1, alignContent: 'center' }}>
                     <Spinner
