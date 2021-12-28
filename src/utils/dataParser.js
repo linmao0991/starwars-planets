@@ -1,7 +1,7 @@
 export const parsePlanetData = data => {
     let planets = data.sort((p1, p2 ) => p1.name.localeCompare(p2.name))
     return planets.map(planet => {
-        const { name, diameter, climate, terrain, surface_water, population, url } = planet
+        const { name, diameter, climate, terrain, surface_water, population, url, residents } = planet
         return {
             name: checkForUnknown(name),
             diameter: checkForUnknown(diameter),
@@ -9,7 +9,8 @@ export const parsePlanetData = data => {
             terrain: checkForUnknown(terrain),
             surface_water: checkForUnknown(surface_water),
             population: checkForUnknown(population),
-            url
+            url,
+            residents
         }
     })
 }
